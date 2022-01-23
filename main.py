@@ -1,24 +1,26 @@
 # global imports
 import matplotlib.colors as mcolors
-from vedo import Volume
-from vedo import embedWindow, show, colorMap
 import nibabel as nib
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 
 ##############################
+# set global path
+pth = ''
+
 # set path to MNI or template image:
-filepathmni152 = './MNI152_T1_1mm_brain.nii.gz'
+filepathmni152 = os.path.join(pth, 'MNI152_T1_1mm_brain.nii.gz')
 
 # set path to overlay image (can be more than one)
-filepath2 = './overlay.nii.gz'
+filepath2 = os.path.join(pth,'overlay.nii.gz')
 
 # name contrast
 opt = 'contrast'
 
 
-mni152 = nib.load('/Users/claraweber/Desktop/brainrender/skeleton_bin.nii.gz').get_fdata()
-im2 = nib.load('/Users/claraweber/Desktop/brainrender/mdev_RD44.nii.gz').get_fdata()
+mni152 = nib.load(filepathmni152).get_fdata()
+im1 = nib.load(filepath2).get_fdata()
 
 # activate for troubleshoot purposes
 #type(im3)
@@ -27,11 +29,13 @@ im2 = nib.load('/Users/claraweber/Desktop/brainrender/mdev_RD44.nii.gz').get_fda
 
 #create single slice -> 8 evenly sliced MNI images with overlay
 fig, axs = plt.subplots(8, sharex=True, sharey=True)
-im1=im1*-1
+
+# invert MNI intensities for use with Greys colormap
+mni152=mni152*-1
 
 #mask overlayed images to make zero voxels transparent
-mni152 = np.ma.masked_where(im1 ==0, im1)
-masked_overlay = np.ma.masked_where(im2 ==0, im2)
+mni152 = np.ma.masked_where(mni152 ==0, mni152)
+masked_overlay = np.ma.masked_where(im1 ==0, im1)
 
 #def show_slices(slices):
 #   """ Function to display row of image slices """
