@@ -37,12 +37,6 @@ mni152=mni152*-1
 mni152 = np.ma.masked_where(mni152 ==0, mni152)
 masked_overlay = np.ma.masked_where(im1 ==0, im1)
 
-#def show_slices(slices):
-#   """ Function to display row of image slices """
-#   fig, axes = plt.subplots(1, len(slices))
-#   for i, slice in enumerate(slices):
-#       axes[i].imshow(slice.T, cmap="gray", origin="lower")
-#plt.figure(figsize=(8,8), dpi=100)
 axs[0].imshow(mni152[:, :, 50], cmap=plt.cm.Greys)
 axs[1].imshow(mni152[:, :, 60], cmap=plt.cm.Greys)
 axs[2].imshow(mni152[:, :, 70], cmap=plt.cm.Greys)
@@ -61,7 +55,6 @@ axs[4].imshow(masked_overlay[:, :, 90], cmap=plt.cm.tab20c)
 axs[5].imshow(masked_overlay[:, :, 100], cmap=plt.cm.tab20c)
 axs[6].imshow(masked_overlay[:, :, 110], cmap=plt.cm.tab20c)
 axs[7].imshow(masked_overlay[:, :, 120], cmap=plt.cm.tab20c)
-
 
 #plt.suptitle("Center slices for EPI image")
 for ax in axs.flat:
